@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="resources/template/template.xhtml"
+             xmlns:sc="http://xmlns.jcp.org/jsf/composite/components"
+             xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+    <h:form id="details">
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-7 ui-g-nopad">
+                <p:fieldset legend="Detalhes">
+                    <div class="ui-g-12 ui-g-nopad">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-12">                
+                                <p:accordionPanel activeIndex="null">
+                                    <p:tab title="Status">
+                                        <sc:details-control controller="#{StatusController}" list="#{StatusController.statusList}" model="#{StatusController.status}" title="Status"></sc:details-control>
+                                    </p:tab>
+
+                                    <p:tab title="Linguagem">
+                                        <sc:details-control controller="#{LanguageController}" list="#{LanguageController.languageList}" model="#{LanguageController.language}" title="Language"></sc:details-control>
+                                    </p:tab>
+                                    
+                                    <p:tab title="Framework">
+                                        <sc:details-control controller="#{FrameworkController}" list="#{FrameworkController.frameworkList}" model="#{FrameworkController.framework}" title="Framework"></sc:details-control>
+                                    </p:tab>
+
+                                    <p:tab title="Padrão de Desenvolvimento">
+                                        <sc:details-control controller="#{PatternController}" list="#{PatternController.patternList}" model="#{PatternController.pattern}" title="Pattern"></sc:details-control>
+                                    </p:tab>
+
+                                    <p:tab title="Banco de Dados">
+                                        <sc:details-control controller="#{DatabaseController}" list="#{DatabaseController.databaseList}" model="#{DatabaseController.database}" title="Database"></sc:details-control>
+                                    </p:tab>
+
+                                    <p:tab title="Sistema">
+                                        <sc:details-control controller="#{SystemController}" list="#{SystemController.systemList}" model="#{SystemController.system}" title="System"></sc:details-control>
+                                    </p:tab>
+
+                                    <p:tab title="IDE">
+                                        <sc:details-control controller="#{IDEController}" list="#{IDEController.ideList}" model="#{IDEController.ide}" title="IDE"></sc:details-control>
+                                    </p:tab>
+                                </p:accordionPanel>
+                            </div>
+                        </div>
+                    </div>
+                </p:fieldset>
+            </div>
+        </div>    
+    </h:form>
+</ui:decorate>

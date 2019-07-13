@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="resources/template/template.xhtml"
+             xmlns:sc="http://xmlns.jcp.org/jsf/composite/components"
+             xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="project">
+        <p:fieldset legend="Novo Projeto" class="widthTotal">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6 ui-lg-4 paddingCenter">
+                    <div class="alignInput">
+                        <p:outputLabel value="Nome :" for="name"/>
+                        <p:inputText value="#{ProjectController.project.name}" id="name" class="inputProject"/>
+                    </div>
+
+                    <div class="alignInput">
+                        <p:outputLabel value="Git Hub :" for="github"/>
+                        <p:inputText value="#{ProjectController.project.gitHub}" id="github" class="inputProject"/>
+                    </div>
+
+                    <div class="alignInput">
+                        <p:outputLabel value="Linguagem :" for=""/>
+                        <p:selectOneMenu value="#{ProjectController.project.language.id}" class="inputProject">
+                            <f:selectItem itemLabel=" "></f:selectItem>
+                            <f:selectItems value="#{LanguageController.languageList}" var="language" itemLabel="#{language.title}" itemValue="#{language.id}"></f:selectItems>
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="alignInput">
+                        <p:outputLabel value="Banco de Dados :" for=""/>
+                        <p:selectOneMenu value="#{ProjectController.project.database.id}" class="inputProject">
+                            <f:selectItem itemLabel=" "></f:selectItem>
+                            <f:selectItems value="#{DatabaseController.databaseList}" var="database" itemLabel="#{database.title}" itemValue="#{database.id}"></f:selectItems>
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="alignInput">
+                        <p:outputLabel value="IDE :" for=""/>
+                        <p:selectOneMenu value="#{ProjectController.project.ide.id}" class="inputProject">
+                            <f:selectItem itemLabel=" "></f:selectItem>
+                            <f:selectItems value="#{IDEController.ideList}" var="ide" itemLabel="#{ide.title}" itemValue="#{ide.id}"></f:selectItems>
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="alignInput">
+                        <p:outputLabel value="Sistema :" for=""/>
+                        <p:selectOneMenu value="#{ProjectController.project.system.id}" class="inputProject">
+                            <f:selectItem itemLabel=" "></f:selectItem>
+                            <f:selectItems value="#{SystemController.systemList}" var="system" itemLabel="#{system.title}" itemValue="#{system.id}"></f:selectItems>
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="alignInput">
+                        <p:outputLabel value="Padrão de Desenvolvimento :" for=""/>
+                        <p:selectOneMenu value="#{ProjectController.project.pattern.id}" class="inputProject">
+                            <f:selectItem itemLabel=" "></f:selectItem>
+                            <f:selectItems value="#{PatternController.patternList}" var="pattern" itemLabel="#{pattern.title}" itemValue="#{pattern.id}"></f:selectItems>
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-8 paddingCenter">
+                    <div class="alignInput">
+                        <p:outputLabel value="Descrição :" for="description"/>
+                        <p:inputTextarea value="#{ProjectController.project.description}" id="description" class="inputTextarea inputProject" rows="11" counter="display" maxlength="1000" counterTemplate="{0} Caracteres restantes" autoResize="false"/>
+                        <h:outputText id="display" class=""/>
+                    </div>
+					<div class="alignCheckbox">
+                        <p:outputLabel value="Framework :" for=""/>
+                        <p:selectCheckboxMenu id="framework" value="#{ProjectController.frameworkList}" converter="frameworkConverter" label="#{ProjectController.project.frameworks}" multiple="true" filter="false" filterMatchMode="startsWith" class="checkboxMenu">
+            				<f:selectItems value="#{FrameworkController.frameworkList}" var="framework" itemLabel="#{framework.title} (#{framework.type})" itemValue="#{framework}"></f:selectItems>	
+        				</p:selectCheckboxMenu>
+                    </div>
+                </div>  
+            </div>
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <p:commandButton action="#{ProjectController.save()}" value="Enviar" class="right" update="@form"></p:commandButton>
+                </div>
+            </div>
+        </p:fieldset>
+    </h:form>
+</ui:decorate>

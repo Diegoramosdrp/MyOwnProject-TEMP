@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="resources/template/template.xhtml"
+             xmlns:sc="http://xmlns.jcp.org/jsf/composite/components"
+             xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="details">    	
+		<c:forEach items="#{ProjectController.projectList}" var="project" id="">
+		    <div class="ui-panel ui-widget ui-widget-content ui-corner-all">
+				<div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+					<h:link outcome="project" value="#{project.name}" styleClass="ui-panel-title titleProjectLink">
+						<f:param name="id" value="#{project.id}"></f:param>
+					</h:link>
+					
+					<h:outputText value="#{project.dateTimeCreate}" styleClass="right dateText"> 
+						<f:convertDateTime pattern="'Criado em :' dd/MM/yyyy" dateStyle="full"/>
+					</h:outputText>
+				</div>
+				<div class="ui-g">
+				    <div class="ui-g-8">
+				    	<h:outputText value="#{project.description}"/>
+			        </div>
+			        <div class="ui-g-4">
+				    	<h:outputText value="#{project.status.title}" styleClass="ui-g-6 statusGrid right" style="background-color: #{project.status.backgroundColor}; color: #{project.status.fontColor};" />
+				    </div>
+				</div>
+			</div>
+			<br/>
+		</c:forEach>
+    </h:form>
+</ui:decorate>

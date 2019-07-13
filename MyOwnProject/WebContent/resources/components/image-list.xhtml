@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"> 
+
+    <cc:interface>
+    	
+    </cc:interface>
+
+    <cc:implementation>
+        <div class="ui-panel ui-widget ui-widget-content ui-corner-all ui-g-12">
+			<div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+				<h:outputText value="Imagens"/>
+				<p:commandButton icon="ui-icon-plus" type="button" onclick="PF('dlg6').show();" styleClass="right"/>
+				<p:dialog header="Imagem" widgetVar="dlg6" modal="true" height="500" width="1000" resizable="false" id="imageModal">
+				    <div class="alignInput">
+                        <p:fileUpload value="#{DocumentController.file}" label="Escolher imagens" uploadLabel="Enviar" cancelLabel="Cancelar" mode="advanced" multiple="true" fileLimit="10" fileUploadListener="#{DocumentController.uploadImage}" onstart="#{DocumentController.setProjectName(ProjectController.project.name)}" update="@form"/>
+                    </div>
+				</p:dialog>
+			</div>
+			<div class="taskGrid">
+				<div class="ui-g">
+					<ui:repeat value="#{ProjectController.imagesList}" var="image">
+	        			<div class="ui-g-2">
+	        				<h:outputLink value="image/#{ProjectController.project.name}/images/#{image.name}" target="_blank">
+								<p:graphicImage value="image/#{ProjectController.project.name}/images/#{image.name}" stream="true" styleClass="img-resize"/>
+							</h:outputLink>
+	        			</div>
+     				</ui:repeat>
+				</div>
+	       	</div>
+		</div>
+    </cc:implementation>
+</html>

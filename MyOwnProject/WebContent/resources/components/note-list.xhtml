@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"> 
+
+    <cc:interface>
+    	
+    </cc:interface>
+
+    <cc:implementation>
+        <div class="ui-panel ui-widget ui-widget-content ui-corner-all ui-g-4">
+			<div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+				<h:outputText value="Notas" />
+				<p:commandButton icon="ui-icon-plus" type="button" onclick="PF('dlg1').show();" styleClass="right"/>
+				<p:dialog header="Nota" widgetVar="dlg1" modal="true" height="200" width="500" resizable="false" id="noteModal">
+				    <div class="alignInput">
+                        <p:outputLabel value="Descrição :" for="description"/>
+                        <p:inputTextarea value="#{NoteController.note.description}" id="description" class="inputProject"/>
+                    </div>
+                    <div class="alignInput">
+		            	<p:commandButton action="#{NoteController.save(ProjectController.project.id)}" oncomplete="PF('dlg1').hide()" value="Criar" update="@form"/>
+		            	<p:commandButton value="Cancelar" oncomplete="PF('dlg1').hide()"/>
+		            </div>
+				</p:dialog>
+			</div>
+			<div class="taskGrid" id="noteList">
+				<p:dataTable var="note" value="#{ProjectController.project.noteList}" widgetVar="noteTable" scrollable="true" styleClass="noHeader" filteredValue="#{NoteController.notes}" emptyMessage="Nenhuma Nota" id="noteGrid">
+					<p:column>
+						<div class="ui-g">
+							<div class="ui-g-2 centerComponent">
+								<p:menuButton>
+									<p:menuitem value="Editar" action="#{NoteController.edit(note)}" icon="ui-icon-pencil" title="Icon Only" update="@form" oncomplete="PF('dlg1').show()"/>
+									<p:menuitem value="Excluir" action="#{NoteController.remove(note)}" icon="ui-icon-trash" title="Icon Only" update="@form"/>
+								</p:menuButton>			        		
+			        		</div>
+			        		<div class="ui-g-10">
+				            	<h:outputText value="#{note.description}"/>
+				            </div>
+		            	</div>
+			         </p:column>
+        			<br/>
+				</p:dataTable>
+	       	</div>
+		</div>
+    </cc:implementation>
+</html>

@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"> 
+
+    <cc:interface>
+    	
+    </cc:interface>
+
+    <cc:implementation>
+        <div class="ui-panel ui-widget ui-widget-content ui-corner-all ui-g-4">
+			<div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+				<h:outputText value="Problemas, Erros e Bugs" />
+				<p:commandButton icon="ui-icon-plus" type="button" onclick="PF('dlg3').show();" styleClass="right"/>
+				<p:dialog header="Problemas" widgetVar="dlg3" modal="true" height="200" width="500" resizable="false" id="problemModal">
+				    <div class="alignInput">
+                        <p:outputLabel value="Descrição :" for="description"/>
+                        <p:inputTextarea value="#{ProblemController.problem.description}" id="description" class="inputProject"/>
+                    </div>
+                    <div class="alignInput">
+		            	<p:commandButton action="#{ProblemController.save(ProjectController.project.id)}" oncomplete="PF('dlg3').hide()" value="Criar" update="@form"/>
+		            	<p:commandButton value="Cancelar" oncomplete="PF('dlg3').hide()"/>
+		            </div>
+				</p:dialog>
+			</div>
+			<div class="taskGrid" id="problemList">
+				<p:dataTable var="problem" value="#{ProjectController.project.problemList}" widgetVar="problemTable" scrollable="true" styleClass="" filteredValue="#{ProblemController.problems}" emptyMessage="Nenhum Problema ou Bug" id="problemGrid">
+					<p:column filterBy="#{problem.solved}" filterMatchMode="equals" styleClass="">
+						<div class="problemItem">
+							<div class="ui-g">
+								<div class="ui-g-2 centerComponent">
+									<p:menuButton>
+										<p:menuitem value="Resolver Problema" action="#{ProblemController.solveProblem(problem)}" icon="ui-icon-squaresmall-plus" title="Icon Only" update="@form" disabled="#{problem.solved ? 'true': 'false'}"/>
+										<p:menuitem value="Editar" action="#{ProblemController.edit(problem)}" icon="ui-icon-pencil" title="Icon Only" update="@form" oncomplete="PF('dlg3').show()" disabled="#{problem.solved ? 'true': 'false'}"/>
+										<p:menuitem value="Excluir" action="#{ProblemController.remove(problem)}" icon="ui-icon-trash" title="Icon Only" update="@form"/>
+									</p:menuButton>			        		
+				        		</div>
+				        		<div class="ui-g-10">
+						            <f:facet name="filter">
+						                <p:selectOneButton onchange="PF('problemTable').filter()">
+						                    <f:converter converterId="javax.faces.Boolean" />
+						                    <f:selectItem itemLabel="Todos" itemValue="" />
+						                    <f:selectItem itemLabel="Resolvido" itemValue="true" />
+						                    <f:selectItem itemLabel="Com Problema" itemValue="false" />
+						                </p:selectOneButton>
+						            </f:facet>
+					            	<h:outputText value="#{problem.solved ? problem.description: problem.description}"  styleClass="#{problem.solved ? 'taskTextFinished': ' '}"/>
+					            </div>
+			            	</div>
+			            </div>
+        			</p:column>
+        			<br/>
+				</p:dataTable>
+	       	</div>
+		</div>
+    </cc:implementation>
+</html>

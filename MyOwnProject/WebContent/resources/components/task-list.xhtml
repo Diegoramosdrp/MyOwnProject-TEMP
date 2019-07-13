@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"> 
+
+    <cc:interface>
+    	
+    </cc:interface>
+
+    <cc:implementation>
+        <div class="ui-panel ui-widget ui-widget-content ui-corner-all ui-g-4">
+			<div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+				<h:outputText value="Tarefas" />
+				<p:commandButton icon="ui-icon-plus" type="button" onclick="PF('dlg2').show();" styleClass="right"/>
+				<p:dialog header="Tarefa" widgetVar="dlg2" modal="true" height="200" width="500" resizable="false" id="taskModal">
+				    <div class="alignInput">
+                        <p:outputLabel value="Descrição :" for="description"/>
+                        <p:inputTextarea value="#{TaskController.task.description}" id="description" class="inputProject"/>
+                    </div>
+                    <div class="alignInput">
+		            	<p:commandButton action="#{TaskController.save(ProjectController.project.id)}" oncomplete="PF('dlg2').hide()" value="Criar" update="@form"/>
+		            	<p:commandButton value="Cancelar" oncomplete="PF('dlg2').hide()"/>
+		            </div>
+				</p:dialog>
+			</div>
+			<div class="taskGrid" id="taskList">
+				<p:dataTable var="task" value="#{ProjectController.project.taskList}" widgetVar="taskTable" scrollable="true" styleClass="" filteredValue="#{TaskController.tasks}" emptyMessage="Nenhuma Tarefa" id="taskGrid">
+					<p:column filterBy="#{task.finished}" filterMatchMode="equals" styleClass="">
+						<div class="taskItem">
+							<div class="ui-g">
+								<div class="ui-g-2 centerComponent">
+									<p:menuButton>
+										<p:menuitem value="Concluir Tarefa" action="#{TaskController.finishTask(task)}" icon="ui-icon-squaresmall-plus" title="Icon Only" update="@form" disabled="#{task.finished ? 'true': 'false'}"/>
+										<p:menuitem value="Editar" action="#{TaskController.edit(task)}" icon="ui-icon-pencil" title="Icon Only" update="@form" oncomplete="PF('dlg2').show()" disabled="#{task.finished ? 'true': 'false'}"/>
+										<p:menuitem value="Excluir" action="#{TaskController.remove(task)}" icon="ui-icon-trash" title="Icon Only" update="@form"/>
+									</p:menuButton>			        		
+				        		</div>
+				        		<div class="ui-g-10">
+						            <f:facet name="filter">
+						                <p:selectOneButton onchange="PF('taskTable').filter()">
+						                    <f:converter converterId="javax.faces.Boolean" />
+						                    <f:selectItem itemLabel="Todos" itemValue="" />
+						                    <f:selectItem itemLabel="Concluido" itemValue="true" />
+						                    <f:selectItem itemLabel="Em Processo" itemValue="false" />
+						                </p:selectOneButton>
+						            </f:facet>
+					            	<h:outputText value="#{task.finished ? task.description: task.description}"  styleClass="#{task.finished ? 'taskTextFinished': ' '}"/>
+					            </div>
+			            	</div>
+			            </div>
+        			</p:column>
+        			<br/>
+				</p:dataTable>
+	       	</div>
+		</div>
+    </cc:implementation>
+</html>

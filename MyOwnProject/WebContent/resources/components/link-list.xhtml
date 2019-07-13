@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"> 
+
+    <cc:interface>
+    	
+    </cc:interface>
+
+    <cc:implementation>
+        <div class="ui-panel ui-widget ui-widget-content ui-corner-all ui-g-4">
+			<div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+				<h:outputText value="Links" />
+				<p:commandButton icon="ui-icon-plus" type="button" onclick="PF('dlg4').show();" styleClass="right"/>
+				<p:dialog header="Link" widgetVar="dlg4" modal="true" height="300" width="500" resizable="false" id="linkModal">
+				    <div class="alignInput">
+                        <p:outputLabel value="Title :" for="title"/>
+                        <p:inputText value="#{LinkController.link.title}" id="title" class="inputProject"/>
+                    </div>
+                    <div class="alignInput">
+                        <p:outputLabel value="URL :" for="url"/>
+                        <p:inputText value="#{LinkController.link.url}" id="url" class="inputProject"/>
+                    </div>
+				    <div class="alignInput">
+                        <p:outputLabel value="Descrição :" for="description"/>
+                        <p:inputTextarea value="#{LinkController.link.description}" id="description" class="inputProject"/>
+                    </div>
+                    <div class="alignInput">
+		            	<p:commandButton action="#{LinkController.save(ProjectController.project.id)}" oncomplete="PF('dlg4').hide()" value="Criar" update="@form"/>
+		            	<p:commandButton value="Cancelar" oncomplete="PF('dlg4').hide()"/>
+		            </div>
+				</p:dialog>
+			</div>
+			<div class="taskGrid" id="linkList">
+				<p:dataTable var="link" value="#{ProjectController.project.linkList}" widgetVar="linkTable" scrollable="true" styleClass="noHeader" emptyMessage="Nenhum Link" id="linkGrid">
+					<p:column>
+						<div class="ui-g">
+							<div class="ui-g-2 centerComponent">
+								<p:menuButton>
+									<p:menuitem value="Editar" action="#{LinkController.edit(link)}" icon="ui-icon-pencil" title="Icon Only" update="@form" oncomplete="PF('dlg4').show()"/>
+									<p:menuitem value="Excluir" action="#{LinkController.remove(link)}" icon="ui-icon-trash" title="Icon Only" update="@form"/>
+								</p:menuButton>			        		
+			        		</div>
+			        		<div class="ui-g-10">
+				            	<h:outputLink value="#{link.url}" target="_blank" styleClass="linkText" id="topLink">
+					        		<h:outputText value="#{link.title}" />
+					        		<p:tooltip id="toolTipFade" for="topLink" value="#{link.description}" position="top"/>
+					        	</h:outputLink>
+				            </div>
+		            	</div>
+			         </p:column>
+        			<br/>
+				</p:dataTable>
+	       	</div>
+		</div>
+    </cc:implementation>
+</html>

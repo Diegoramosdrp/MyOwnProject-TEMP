@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:f="http://java.sun.com/jsf/core"
+             template="resources/template/template.xhtml"
+             xmlns:sc="http://xmlns.jcp.org/jsf/composite/components">
+    
+    <h:form enctype="multipart/form-data">
+	    <p:fileUpload value="#{DocumentController.file}" mode="simple" update="growl"/>
+	    <h:commandButton action="#{DocumentController.uploadFile()}" value="Enviar"/>
+	    
+	    <p:commandButton action="#{FileController.createPathProject('final')}" value="Criar Pasta"/>
+	</h:form>
+</ui:decorate>

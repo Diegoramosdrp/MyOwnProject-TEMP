@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"> 
+
+    <cc:interface>
+    	
+    </cc:interface>
+
+    <cc:implementation>
+		<div class="ui-panel ui-widget ui-widget-content ui-corner-all">
+		    <div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+				<h:outputText value="#{ProjectController.project.name}" style="font-size: 45px"/>
+				<div class="ui-g-4 right">
+			   		<h:outputText value="#{ProjectController.project.status.title}" styleClass="ui-g-6 statusGrid right" style="background-color: #{ProjectController.project.status.backgroundColor}; color: #{ProjectController.project.status.fontColor};" />
+				</div>
+			</div>
+			<div class="spaceTopMin">
+				<p:toolbar>
+				
+					<f:facet name="left">
+			            <p:commandButton type="button" value="New" icon="ui-icon-document" />
+			 
+			            <p:commandButton type="button" value="Open" icon="ui-icon-folder-open" />
+			 
+			            <span class="ui-separator">
+			                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+			            </span>
+			 
+			            <p:commandButton type="button" title="Save" icon="ui-icon-disk" />
+			            <p:commandButton type="button" title="Delete" icon="ui-icon-trash" />
+			            <p:commandButton type="button" title="Print" icon="ui-icon-print" />
+			        </f:facet>
+				
+				</p:toolbar>
+			</div>
+			
+			<div class="ui-g">
+		        <div class="ui-g-5"> 
+					<p:panelGrid styleClass="ui-noborder">
+					 
+					    <p:row>
+					        <p:column><h:outputText value="GitHub:" /></p:column>
+					        <p:column>
+					        	<h:outputLink value="#{ProjectController.project.gitHub}" target="_blank" styleClass="gitText" id="topLink">
+					        		<h:outputText value="Abrir Repositório" />
+					        		<p:tooltip id="toolTipFade" for="topLink" value="#{ProjectController.project.gitHub}" position="top"/>
+					        	</h:outputLink>
+					        </p:column>
+					    </p:row>
+					 	
+					    <p:row>  
+					        <p:column><h:outputText value="Linguagem:" /></p:column>
+					        <p:column><h:outputText value="#{ProjectController.project.language.title}" style="font-weight: bold"/></p:column>
+					    </p:row>
+					 
+					 	<p:row>
+					        <p:column><h:outputText value="Banco de Dados:" /></p:column>
+					        <p:column><h:outputText value="#{ProjectController.project.database.title}" style="font-weight: bold"/></p:column>
+					    </p:row>
+					    
+					    <p:row>
+					        <p:column><h:outputText value="Sistema:" /></p:column>
+					        <p:column><h:outputText value="#{ProjectController.project.system.title}" style="font-weight: bold"/></p:column>
+					    </p:row>
+	
+					    <p:row>
+					        <p:column><h:outputText value="Padrão de Desenvolvimento:" /></p:column>
+					        <p:column><h:outputText value="#{ProjectController.project.pattern.title}" style="font-weight: bold"/></p:column>
+					    </p:row>
+					    
+					    <p:row>
+					        <p:column><h:outputText value="IDE:" /></p:column>
+					        <p:column><h:outputText value="#{ProjectController.project.ide.title}" style="font-weight: bold"/></p:column>
+					    </p:row>
+					    				 
+					    <p:row styleClass="tableTextTop">
+					        <p:column><h:outputText value="Frameworks:" /></p:column>
+					        <p:column>
+					        	<ui:repeat value="#{ProjectController.project.frameworks}" var="framework">
+			                    	<h:outputText value="#{framework.title}" style="font-weight: bold"/><br/>
+		                    	</ui:repeat>
+		                    </p:column>
+					    </p:row>
+					 
+					    <p:row>
+					        <p:column><h:outputText value="Data de Criação:" /></p:column>
+					        <p:column>
+					        	<h:outputText value="#{ProjectController.project.dateTimeCreate}" style="font-weight: bold"> 
+									<f:convertDateTime pattern="dd/MM/yyyy 'às' HH:mm" dateStyle="full"/>
+								</h:outputText>
+					        </p:column>
+					    </p:row>
+					 
+					 	<p:row>
+					        <p:column><h:outputText value="Projeto Iniciado em:" /></p:column>
+					        <p:column>
+					        	<h:outputText value="#{ProjectController.project.dateTimeStart}" style="font-weight: bold"> 
+									<f:convertDateTime pattern="dd/MM/yyyy 'às' HH:mm" dateStyle="full"/>
+								</h:outputText>
+					        </p:column>
+					    </p:row>
+					    
+					    <p:row>
+					        <p:column><h:outputText value="Projeto Concluido em:" /></p:column>
+					        <p:column>
+					        	<h:outputText value="#{ProjectController.project.dateTimeEnd}" style="font-weight: bold"> 
+									<f:convertDateTime pattern="dd/MM/yyyy 'às' HH:mm" dateStyle="full"/>
+								</h:outputText>
+					        </p:column>
+					    </p:row>   
+					</p:panelGrid>
+		        </div>
+		        <div class="ui-g-7">
+					<p:panelGrid styleClass="ui-noborder">
+						<p:row>
+							<p:column rowspan="10">
+					        	<h:outputText value="Descrição:" /><br/>
+					        	<h:outputText value="#{ProjectController.project.description}" style="font-weight: bold"/>
+					        </p:column>
+						</p:row>
+					</p:panelGrid>
+		        </div>
+			</div>
+		</div>
+    </cc:implementation>
+</html>

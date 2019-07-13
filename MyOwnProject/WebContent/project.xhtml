@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:f="http://java.sun.com/jsf/core"
+             template="resources/template/template.xhtml"
+             xmlns:sc="http://xmlns.jcp.org/jsf/composite/components">
+    <f:metadata>
+	    <f:viewParam name="id" value="#{ProjectController.project.id}"/>
+	    <f:event listener="#{ProjectController.projectDetail(ProjectController.project.id)}" type="preRenderView"></f:event>
+	</f:metadata>
+    
+    
+    <h:form id="projectDetail" enctype="multipart/form-data">
+	    <sc:details-project/>
+		
+		<br/>
+		
+		<div class="ui-g">
+			<sc:task-list/>
+			<sc:problem-list/>
+			<sc:note-list/>
+		</div>
+		
+		<br/>
+		
+		<div class="ui-g">
+			<sc:link-list/>
+			<sc:document-list/>
+		</div>
+		
+		<br/>
+		
+		<div class="ui-g">
+			<sc:image-list/>
+		</div>
+    </h:form>
+</ui:decorate>

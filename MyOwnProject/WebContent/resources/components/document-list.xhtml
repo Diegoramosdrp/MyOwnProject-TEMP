@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"> 
+
+    <cc:interface>
+    	
+    </cc:interface>
+
+    <cc:implementation>
+        <div class="ui-panel ui-widget ui-widget-content ui-corner-all ui-g-8">
+			<div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+				<h:outputText value="Documentos" />
+				<p:commandButton icon="ui-icon-plus" type="button" onclick="PF('dlg5').show();" styleClass="right"/>
+				<p:dialog header="Documento" widgetVar="dlg5" modal="true" height="500" width="1000" resizable="false" id="documentModal">
+				    <div class="alignInput">
+                        <p:fileUpload value="#{DocumentController.file}" label="Escolher arquivos" uploadLabel="Enviar" cancelLabel="Cancelar" mode="advanced" multiple="true" fileLimit="10" fileUploadListener="#{DocumentController.uploadDocument}" onstart="#{DocumentController.setProjectName(ProjectController.project.name)}" update="@form"/>
+                    </div>
+				</p:dialog>
+			</div>
+			<div class="taskGrid" id="documentList">
+				<p:dataTable value="#{ProjectController.documentsList}" var="document" id="documentTable" styleClass="noHeader" scrollable="true" emptyMessage="Sem documentos">
+					<p:column>
+						<div class="ui-g">
+							<div class="ui-g-12">
+								<h:outputText value="#{document.name}" />
+				            </div>
+		            	</div>
+					</p:column>
+					<br/>
+				</p:dataTable>
+	       	</div>
+		</div>
+    </cc:implementation>
+</html>
